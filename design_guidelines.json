@@ -1,0 +1,74 @@
+{
+  "app_name": "Crown Pass Driving School",
+  "app_type": "hybrid_fullstack",
+  "palette": {
+    "background_primary": "#0A0A0A",
+    "background_secondary": "#151515",
+    "primary": "#D4A853",
+    "secondary": "#F0D48B",
+    "text_light": "#F5F0E8",
+    "text_muted": "#B8B8B8",
+    "success": "#4ADE80"
+  },
+  "typography": {
+    "headings": "Poppins",
+    "body": "Inter",
+    "hierarchy": {
+      "H1": "text-4xl sm:text-5xl lg:text-6xl tracking-tight font-bold",
+      "H2": "text-2xl sm:text-3xl lg:text-4xl tracking-tight font-semibold",
+      "H3": "text-xl sm:text-2xl font-semibold",
+      "H4": "text-lg sm:text-xl font-medium",
+      "body": "text-base text-[#B8B8B8]"
+    }
+  },
+  "firebase_config": {
+    "apiKey": "AIzaSyDC_UysBJr1n39w9_Vb6D_0NhZ2CDE40Gw",
+    "authDomain": "crown-pass-driving.firebaseapp.com",
+    "projectId": "crown-pass-driving",
+    "storageBucket": "crown-pass-driving.firebasestorage.app",
+    "messagingSenderId": "186536451804",
+    "appId": "1:186536451804:web:6e3f6910c3ff66876ede19",
+    "measurementId": "G-0VDRW4E5C0"
+  },
+  "admin_credentials": {
+    "email": "adevbossCDSuk@gmail.in",
+    "password": "uk#1CDSleg",
+    "route": "/adevglobpik"
+  },
+  "image_urls": [
+    {
+      "category": "hero_background_1",
+      "url": "https://customer-assets-0z36b82j.emergentagent.net/job_a8595af7-d07f-4726-933d-5500819d4463/artifacts/z244wxtt_IMG_20260917_194743_693.jpg",
+      "description": "Crown Pass Driving promotional car and instructor branding"
+    },
+    {
+      "category": "hero_background_2",
+      "url": "https://customer-assets-0z36b82j.emergentagent.net/job_a8595af7-d07f-4726-933d-5500819d4463/artifacts/tpfgaen6_IMG_20260917_194749_175.jpg",
+      "description": "Crown Pass Driving Northampton UK student success & vehicles"
+    },
+    {
+      "category": "hero_background_3",
+      "url": "https://customer-assets-0z36b82j.emergentagent.net/job_a8595af7-d07f-4726-933d-5500819d4463/artifacts/4y6zaxha_IMG_20260917_194754_026.jpg",
+      "description": "Crown Pass Driving dual-control cars & expert training"
+    }
+  ],
+  "components_and_features": [
+    "7-second cinematic loading screen with gold shimmer and logo",
+    "Sticky glass navbar with backdrop-blur-xl bg-[#0A0A0A]/80 border-b border-[#D4A853]/20",
+    "Home page with hero showcase, interactive lesson selector, trust stats, and student testimonials",
+    "Lessons page detailing beginner, intensive, motorway, pass plus, and refresher courses",
+    "Pricing & Plans page with transparent block pricing and Firestore instant booking / plan enquiry",
+    "Contact page with interactive form writing directly to Firebase Firestore messages collection",
+    "Dynamic ratings and reviews pulled live from Firestore with star rating submission",
+    "Admin dashboard route /adevglobpik with Firebase email/password auth (adevbossCDSuk@gmail.in / uk#1CDSleg)",
+    "Admin CRUD management for lessons, pricing plans, contact messages, dynamic ratings, site settings, and maintenance mode",
+    "WhatsApp floating action button with direct chat link for Northampton students"
+  ],
+  "UNIVERSAL GUIDELINES FOR MAIN AGENT": [
+    "Use Firebase SDKs directly from React frontend for all data operations (lessons, plans, messages, ratings, settings, admin auth). Do NOT use MongoDB or custom FastAPI backend.",
+    "All interactive and key informational elements MUST include a data-testid attribute for robust automated testing.",
+    "Ensure dark theme (#0A0A0A / #151515) with rich gold accents (#D4A853, #F0D48B) across all pages.",
+    "Never use complete transparent background in headers or overlays; ensure solid or glassmorphism background with proper contrast.",
+    "Apply Poppins for headings and Inter for body copy."
+  ]
+}

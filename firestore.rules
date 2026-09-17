@@ -1,0 +1,12 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function admin() { return request.auth != null && request.auth.token.email == 'adevbossCDSuk@gmail.in'; }
+    match /lessons/{id} { allow read: if true; allow write: if admin(); }
+    match /plans/{id} { allow read: if true; allow write: if admin(); }
+    match /ratings/{id} { allow read: if resource.data.visible == true || admin(); allow create: if request.resource.data.rating >= 1 && request.resource.data.rating <= 10; allow update, delete: if admin(); }
+    match /messages/{id} { allow create: if true; allow read, update, delete: if admin(); }
+    match /siteSettings/{id} { allow read: if true; allow write: if admin(); }
+    match /analytics/{id} { allow read: if admin(); allow write: if true; }
+  }
+}
