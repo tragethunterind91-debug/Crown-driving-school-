@@ -11,6 +11,22 @@ Build a premium Crown Pass Driving School website (Northampton) with React, Tail
 - Analytics counter uses atomic `increment(1)` on `analytics/{yyyy-mm-dd}` throttled by sessionStorage.
 - Static fallback content (lessons, plans, FAQs, reviews) ships with the app so the site is informative even before admin seeds Firestore. Live Firestore documents take precedence when present.
 
+## What's been implemented (2026-09-19 · v2 — "real website" expansion, no payment gateway)
+- Per user direction ("Stripe/Razorpay leave that all, just contact to dealer") — NO online payments. All booking routes to Contact form / WhatsApp / phone.
+- New **Instructors / Meet the Team** page (`/instructors`): 5 instructor profiles (AI-generated consistent portraits), grade badges, specialties, languages, bios, "Request [name]" CTA that deep-links to Contact with instructor prefilled. Team stats band + Crown Pass promise section.
+- New **Areas We Cover** page (`/areas`): 10 Northampton pick-up locations, 10-mile radius card with embedded map, WhatsApp postcode check CTA.
+- Home: added "Meet the team" preview section (4 instructors → /instructors).
+- Navbar + Footer updated with Instructors and Areas links.
+- Contact form now reads `?instructor=` query param and prefills Extra details.
+- Data: `INSTRUCTORS`, `AREAS`, `TEAM_STATS`, `ASSETS.team`, `ASSETS.northampton` added to `lib/data.js`.
+- New CSS blocks in App.css (instructor-grid/card, team-preview, areas-grid, area-map-card) with responsive breakpoints.
+- Self-tested via screenshots: 5 instructor cards render, 10 area cards render, nav links present, instructor→contact prefill verified.
+
+## Firebase Hosting (Termux) — deployment status
+- User builds via `npx craco build` then `firebase deploy --only hosting` from `~/Crown-driving-school--main/frontend`.
+- Firebase project `crown-pass-driving` confirmed current after `firebase login --reauth`.
+- NOTE: New pages are client-side routes — Firebase SPA rewrite in firebase.json must send all routes to /index.html (already configured). User must rebuild + redeploy to see /instructors and /areas live.
+
 ## What's been implemented (2026-09-19)
 - Modular refactor: `pages/Home`, `pages/Lessons`, `pages/Pricing`, `pages/Contact`, `pages/Admin`; `components/CinematicLoader`, `Navbar`, `Footer`, `Shell`, `RatingModal`, `AnimatedCounter`; `lib/data`, `lib/firestoreHelpers`.
 - Cinematic 7-second loader with staged particles, headlights, crown glow, letter-by-letter CROWN/PASS reveal, tagline, gold progress bar.

@@ -25,6 +25,7 @@ import {
   FALLBACK_REVIEWS,
   FAQS,
   FEATURES,
+  INSTRUCTORS,
   LESSONS,
   PLANS,
   SITE,
@@ -313,8 +314,43 @@ function ImageStripSection() {
   );
 }
 
-function RatingSection({ reviews, onOpen }) {
-  const data = reviews.length ? reviews : FALLBACK_REVIEWS;
+function TeamPreviewSection() {
+  return (
+    <section className="container section" data-testid="home-team-preview">
+      <SectionTitle
+        eyebrow="MEET THE TEAM"
+        title="DVSA-approved instructors<br/>who keep you calm."
+        text="Patient, fully qualified and continuously assessed — the people who'll guide you to your licence."
+      />
+      <div className="team-preview-grid">
+        {INSTRUCTORS.slice(0, 4).map((p, i) => (
+          <motion.div
+            key={p.id}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: i * 0.06, duration: 0.5 }}
+          >
+            <Link to="/instructors" className="team-preview-card" data-testid={`home-team-card-${p.id}`}>
+              <img src={p.photo} alt={p.name} loading="lazy" />
+              <div className="team-preview-body">
+                <strong>{p.name}</strong>
+                <small>{p.passHighlight}</small>
+              </div>
+            </Link>
+          </motion.div>
+        ))}
+      </div>
+      <div className="pricing-cta">
+        <Link to="/instructors" className="button button-outline" data-testid="home-meet-team-link">
+          Meet the full team ↗
+        </Link>
+      </div>
+    </section>
+  );
+}
+
+function RatingSection({ reviews, onOpen }) {  const data = reviews.length ? reviews : FALLBACK_REVIEWS;
   const average = useMemo(() => {
     if (!reviews.length) return "9.2";
     return (reviews.reduce((a, b) => a + Number(b.rating || 0), 0) / reviews.length).toFixed(1);
@@ -626,6 +662,7 @@ export default function Home() {
       <ExtraFeaturesSection />
       <LessonsPreviewSection />
       <ImageStripSection />
+      <TeamPreviewSection />
       <RatingSection reviews={reviews} onOpen={() => setModal(true)} />
       <PricingPreviewSection />
       <ContactPreviewSection />

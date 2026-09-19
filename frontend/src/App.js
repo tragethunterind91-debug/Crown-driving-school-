@@ -5,6 +5,8 @@ import CinematicLoader from "@/components/CinematicLoader";
 import Home from "@/pages/Home";
 import Lessons from "@/pages/Lessons";
 import Pricing from "@/pages/Pricing";
+import Instructors from "@/pages/Instructors";
+import Areas from "@/pages/Areas";
 import Contact from "@/pages/Contact";
 import Admin from "@/pages/Admin";
 import { safeGet } from "@/lib/firestoreHelpers";
@@ -49,6 +51,8 @@ export default function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/lessons" element={<Lessons />} />
                 <Route path="/pricing" element={<Pricing />} />
+                <Route path="/instructors" element={<Instructors />} />
+                <Route path="/areas" element={<Areas />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="*" element={<Home />} />
               </>

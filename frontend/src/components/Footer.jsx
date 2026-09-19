@@ -43,6 +43,8 @@ export default function Footer() {
           <Link to="/" data-testid="footer-home-link">Home</Link>
           <Link to="/lessons" data-testid="footer-lessons-link">Lessons</Link>
           <Link to="/pricing" data-testid="footer-pricing-link">Pricing</Link>
+          <Link to="/instructors" data-testid="footer-instructors-link">Instructors</Link>
+          <Link to="/areas" data-testid="footer-areas-link">Areas we cover</Link>
           <Link to="/contact" data-testid="footer-contact-link">Contact support</Link>
         </div>
 

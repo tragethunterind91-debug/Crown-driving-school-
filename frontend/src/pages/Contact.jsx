@@ -11,13 +11,14 @@ const COUNTRIES = ["United Kingdom", "Ireland", "France", "Germany", "Spain", "I
 export default function Contact() {
   const params = new URLSearchParams(useLocation().search);
   const prefill = params.get("lesson") || params.get("plan") || LESSONS[0].name;
+  const instructorPref = params.get("instructor") || "";
   const [form, setForm] = useState({
     name: "",
     phone: "",
     country: "United Kingdom",
     whatsapp: "",
     selectedPlan: prefill,
-    extraDetails: "",
+    extraDetails: instructorPref ? `Preferred instructor: ${instructorPref}.` : "",
     email: "",
   });
   const [state, setState] = useState("idle");

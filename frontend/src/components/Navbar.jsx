@@ -7,7 +7,9 @@ const LINKS = [
   ["/", "Home"],
   ["/lessons", "Lessons"],
   ["/pricing", "Pricing"],
-  ["/contact", "Contact support"],
+  ["/instructors", "Instructors"],
+  ["/areas", "Areas"],
+  ["/contact", "Contact"],
 ];
 
 export function Brand({ tone = "dark" }) {

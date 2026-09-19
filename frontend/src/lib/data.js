@@ -14,6 +14,14 @@ export const ASSETS = {
   interior: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=1600&q=80",
   keys: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1600&q=80",
   passed: "https://images.unsplash.com/photo-1493238792000-8113da705763?auto=format&fit=crop&w=1600&q=80",
+  northampton: "https://images.pexels.com/photos/19848066/pexels-photo-19848066.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1600",
+  team: {
+    marcus: "https://static.prod-images.emergentagent.com/jobs/a8595af7-d07f-4726-933d-5500819d4463/images/b5b7aec37fbc360098535dbaaecbabd7bfba74cf4ab914d5d173d6cff6b1e98e.jpeg",
+    sofia: "https://static.prod-images.emergentagent.com/jobs/a8595af7-d07f-4726-933d-5500819d4463/images/633e14eed9f52bed84d540f3e5884b53ddf8dcfaa5f1bfcca5f1070f7516b82b.jpeg",
+    daniel: "https://static.prod-images.emergentagent.com/jobs/a8595af7-d07f-4726-933d-5500819d4463/images/9a002ac02975b138454965e90e701d98c00df9c1897d7b2ed45637ef6613df27.jpeg",
+    aisha: "https://static.prod-images.emergentagent.com/jobs/a8595af7-d07f-4726-933d-5500819d4463/images/d0a9bffb705823badb33c47f6a5243975b0ce0c89063d5b25f36c3b8d3757719.jpeg",
+    james: "https://static.prod-images.emergentagent.com/jobs/a8595af7-d07f-4726-933d-5500819d4463/images/e6d77baac8a7927f2bcf779173f5789127e04052b290a3a33222548d2f0dd71c.jpeg",
+  },
 };
 
 export const SITE = {
@@ -449,6 +457,89 @@ export const CANCELLATION_POLICY = [
 ];
 
 export const PAYMENT_METHODS = ["Card", "Bank Transfer", "Cash"];
+
+export const INSTRUCTORS = [
+  {
+    id: "marcus",
+    name: "Marcus Bennett",
+    role: "Senior DVSA-Approved Instructor",
+    photo: ASSETS.team.marcus,
+    experience: "18 years",
+    grade: "ADI Grade A",
+    specialties: ["Manual tuition", "Intensive courses", "Test-route mastery"],
+    languages: ["English"],
+    bio: "Marcus founded the Crown Pass teaching method after nearly two decades on Northampton's roads. Calm, methodical and endlessly patient, he specialises in getting committed learners test-ready fast.",
+    passHighlight: "First-time pass specialist",
+  },
+  {
+    id: "sofia",
+    name: "Sofia Reyes",
+    role: "DVSA-Approved Instructor",
+    photo: ASSETS.team.sofia,
+    experience: "9 years",
+    grade: "ADI Grade A",
+    specialties: ["Automatic tuition", "Nervous drivers", "Female instructor"],
+    languages: ["English", "Spanish"],
+    bio: "Sofia is the instructor learners request when nerves are getting the better of them. Her gentle, confidence-first approach has helped hundreds of anxious drivers pass with a smile.",
+    passHighlight: "Nervous-driver specialist",
+  },
+  {
+    id: "daniel",
+    name: "Daniel Ward",
+    role: "DVSA-Approved Instructor",
+    photo: ASSETS.team.daniel,
+    experience: "22 years",
+    grade: "ADI Grade A",
+    specialties: ["Refresher lessons", "Mature learners", "Pass Plus"],
+    languages: ["English"],
+    bio: "With over two decades of teaching, Daniel is a reassuring presence for mature learners and drivers returning to the wheel after a long break. Nothing fazes him.",
+    passHighlight: "Refresher & mature-learner expert",
+  },
+  {
+    id: "aisha",
+    name: "Aisha Khan",
+    role: "DVSA-Approved Instructor",
+    photo: ASSETS.team.aisha,
+    experience: "8 years",
+    grade: "ADI Grade A",
+    specialties: ["Female instructor", "Automatic & manual", "Pass Plus"],
+    languages: ["English", "Urdu", "Punjabi"],
+    bio: "Aisha combines a warm, encouraging manner with sharp attention to detail. She's a favourite among learners who want a female instructor and a structured, supportive plan.",
+    passHighlight: "Female instructor on request",
+  },
+  {
+    id: "james",
+    name: "James Cole",
+    role: "Trainee Instructor (PDI)",
+    photo: ASSETS.team.james,
+    experience: "5 years driving coaching",
+    grade: "PDI · fully supervised",
+    specialties: ["Motorway confidence", "Night driving", "Young learners"],
+    languages: ["English"],
+    bio: "The newest member of the team, James brings fresh energy and a real knack for connecting with younger learners. He specialises in post-test motorway and night confidence.",
+    passHighlight: "Motorway & night specialist",
+  },
+];
+
+export const AREAS = [
+  { name: "Northampton Town Centre", note: "Abington Street, The Drapery and live test-centre routes." },
+  { name: "Kingsthorpe", note: "Popular pick-up point with quiet practice roads nearby." },
+  { name: "Duston", note: "Residential streets ideal for early lessons and manoeuvres." },
+  { name: "Weston Favell", note: "Busy junctions and roundabouts for real-world practice." },
+  { name: "Wootton", note: "Modern estates perfect for bay parking and reversing." },
+  { name: "Hardingstone", note: "Village roads for country-lane and rural awareness." },
+  { name: "Far Cotton", note: "Close to the test centre for final pre-test prep." },
+  { name: "Sixfields", note: "Multi-lane roundabouts and retail-park traffic." },
+  { name: "Moulton", note: "A mix of village and dual-carriageway driving." },
+  { name: "Roade & surrounding villages", note: "Country roads within our 10-mile pick-up radius." },
+];
+
+export const TEAM_STATS = [
+  { value: "6", label: "DVSA-approved instructors" },
+  { value: "60+", label: "Years combined experience" },
+  { value: "5", label: "Languages spoken" },
+  { value: "1,000+", label: "Learners taught" },
+];
 
 export const FALLBACK_REVIEWS = [
   { name: "Ayesha K.", rating: 10, reviewText: "Patient from the first minute. I passed with confidence.", visible: true },
