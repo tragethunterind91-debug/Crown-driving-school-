@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { onAuthStateChanged, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword } from "firebase/auth";
+import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { BarChart3, LogOut, Mail, MessageCircle, Settings, Star, Trash2, Users } from "lucide-react";
 import { Bar, BarChart, Cell, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { auth } from "@/firebase";
@@ -9,27 +9,23 @@ import { LESSONS as DEFAULT_LESSONS, PLANS as DEFAULT_PLANS, SITE } from "@/lib/
 import { removeDoc, safeGet, saveLesson, savePlan, saveSiteSettings, subscribe, updateMessage, updateRating } from "@/lib/firestoreHelpers";
 
 const money = (n) => `£${Number(n).toLocaleString("en-GB")}`;
-const ADMIN_EMAIL = "adevbossCDSuk@gmail.in";
+const ADMIN_EMAIL = "derox@gmail.com";
 
-function LoginCard({ onDone }) {
-  const [email, setEmail] = useState(ADMIN_EMAIL);
+function LoginCard() {
   const [password, setPassword] = useState("");
   const [state, setState] = useState("idle");
   const [err, setErr] = useState("");
-  const [showCreate, setShowCreate] = useState(false);
 
-  const submit = async (e, create = false) => {
+  const submit = async (e) => {
     e.preventDefault();
     setState("saving"); setErr("");
     try {
-      if (create) await createUserWithEmailAndPassword(auth, email.trim(), password);
-      else await signInWithEmailAndPassword(auth, email.trim(), password);
-      onDone?.();
+      await signInWithEmailAndPassword(auth, ADMIN_EMAIL, password);
     } catch (e2) {
       setState("idle");
       const code = e2?.code || "";
       if (code.includes("wrong-password") || code.includes("invalid-credential")) setErr("The password is incorrect. Please try again.");
-      else if (code.includes("user-not-found")) setErr("This admin account has not been created yet in Firebase Authentication. Tap 'Create admin' below to provision it.");
+      else if (code.includes("user-not-found")) setErr("This admin account has not been created in Firebase Authentication yet.");
       else if (code.includes("too-many-requests")) setErr("Too many attempts. Please wait a minute and try again.");
       else if (code.includes("operation-not-allowed") || code.includes("configuration-not-found")) setErr("Email/Password sign-in is not enabled in Firebase Console. Enable it under Authentication → Sign-in method.");
       else setErr("Sign-in failed. Please double-check the email and password.");
@@ -43,24 +39,21 @@ function LoginCard({ onDone }) {
         initial={{ y: 30, opacity: 0 }}
         animate={{ y: 0, opacity: 1, x: err ? [0, -8, 8, -6, 6, 0] : 0 }}
         transition={{ duration: 0.5 }}
-        onSubmit={(e) => submit(e, showCreate)}
+        onSubmit={submit}
       >
         <Brand />
         <span className="eyebrow">PRIVATE ADMIN ACCESS</span>
-        <h1>{showCreate ? "Create admin access." : "Welcome back."}</h1>
+        <h1>Welcome back.</h1>
         <p>Manage lessons, plans, messages and site settings from one calm workspace.</p>
         <label>Email
-          <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} data-testid="admin-email-input" autoComplete="username" />
+          <input type="email" required value={ADMIN_EMAIL} readOnly data-testid="admin-email-input" autoComplete="username" />
         </label>
         <label>Password
-          <input type="password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} data-testid="admin-password-input" autoComplete={showCreate ? "new-password" : "current-password"} />
+          <input type="password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} data-testid="admin-password-input" autoComplete="current-password" />
         </label>
         {err && <div className="form-error" data-testid="admin-auth-error">{err}</div>}
         <button type="submit" className="button" disabled={state === "saving"} data-testid="admin-login-button">
-          {state === "saving" ? "Please wait…" : showCreate ? "Create account ↗" : "Sign in ↗"}
-        </button>
-        <button type="button" className="text-link" onClick={() => { setShowCreate((v) => !v); setErr(""); }} data-testid="admin-mode-toggle-button">
-          {showCreate ? "← Back to sign in" : "Need to create the account?"}
+          {state === "saving" ? "Please wait…" : "Sign in ↗"}
         </button>
       </motion.form>
     </div>
@@ -412,8 +405,16 @@ function SettingsManager({ settings, onChange }) {
 export default function Admin() {
   const [user, setUser] = useState(null);
   const [ready, setReady] = useState(false);
-  useEffect(() => onAuthStateChanged(auth, (u) => { setUser(u); setReady(true); }), []);
+  useEffect(() => onAuthStateChanged(auth, (u) => {
+    if (u && u.email?.toLowerCase() !== ADMIN_EMAIL) {
+      signOut(auth);
+      setUser(null);
+    } else {
+      setUser(u);
+    }
+    setReady(true);
+  }), []);
   if (!ready) return <div className="admin-loading" data-testid="admin-loading">Loading…</div>;
-  if (!user) return <LoginCard onDone={() => {}} />;
+  if (!user) return <LoginCard />;
   return <Dashboard user={user} onSignOut={() => signOut(auth)} />;
 }

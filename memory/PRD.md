@@ -28,6 +28,12 @@ Build a premium Crown Pass Driving School website (Northampton) with React, Tail
 - Instructor and lesson pages are now text-first, retaining all instructor matching, booking, lesson, and contact functionality.
 - Verified: production build completes successfully; preview confirms all five instructor cards render without portraits.
 
+## Admin access migration (2026-09-20)
+- Updated the application, Firestore rules, and Storage rules to recognise `derox@gmail.com` as the only administrator; the previous administrator email was removed.
+- The admin sign-in email is now fixed, and public account-creation controls have been removed. Any authenticated account other than the configured administrator is signed out before it can access the dashboard.
+- Verified: production build completes successfully; `/adevglobpik` renders the new fixed-email private login with no account-creation control.
+- Firebase Console action still required: enable Email/Password (if not already enabled), create the `derox@gmail.com` user, and set its password privately. Then publish Hosting and the updated Firestore/Storage rules.
+
 ## Firebase Hosting (Termux) — deployment status
 - User builds via `npx craco build` then `firebase deploy --only hosting` from `~/Crown-driving-school--main/frontend`.
 - Firebase project `crown-pass-driving` confirmed current after `firebase login --reauth`.
