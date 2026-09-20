@@ -256,7 +256,7 @@ function ExtraFeaturesSection() {
   );
 }
 
-function LessonsPreviewSection() {
+function LessonsPreviewSection({ lessons }) {
   return (
     <section className="container section" data-testid="home-lessons-preview">
       <SectionTitle
@@ -265,7 +265,7 @@ function LessonsPreviewSection() {
         text="Six lesson types built for real Northampton learners — from first-timers to post-test refresh."
       />
       <div className="lesson-grid">
-        {LESSONS.map((l, i) => (
+        {lessons.map((l, i) => (
           <motion.div
             key={l.id}
             initial={{ opacity: 0, y: 24 }}
@@ -274,16 +274,16 @@ function LessonsPreviewSection() {
             transition={{ delay: i * 0.06, duration: 0.5 }}
           >
             <Link
-              to={`/lessons#${l.id}`}
+              to={`/contact?lesson=${encodeURIComponent(l.name)}`}
               className="lesson-card"
-              data-testid={`home-lesson-card-${l.id}`}
+              data-testid={`home-lesson-card-${l.id || i + 1}`}
             >
-              <div className="lesson-icon">{l.icon}</div>
+              <div className="lesson-icon">{l.icon || "◈"}</div>
               <div>
-                <span className="eyebrow">{l.tag}</span>
+                <span className="eyebrow">{l.tag || "DRIVING LESSON"}</span>
                 <h3>{l.name}</h3>
                 <p>
-                  From <b>{money(l.packagePrice)}</b> {l.id === "pass-plus" ? "total" : "/ hour in packages"}
+                  From <b>{money(l.packagePrice ?? l.pricePerHour ?? 0)}</b> {l.id === "pass-plus" ? "total" : "/ hour in packages"}
                 </p>
               </div>
               <span className="arrow">↗</span>
@@ -458,7 +458,7 @@ function RatingSection({ reviews, onOpen }) {  const data = reviews.length ? rev
   );
 }
 
-function PricingPreviewSection() {
+function PricingPreviewSection({ plans }) {
   return (
     <section className="dark-band" data-testid="home-pricing-preview">
       <div className="container">
@@ -468,7 +468,7 @@ function PricingPreviewSection() {
           text="Flexible packages that reward committed practice. Full pricing breakdown on the pricing page."
         />
         <div className="pricing-grid">
-          {PLANS.map((p, i) => (
+        {plans.map((p, i) => (
             <motion.div
               key={p.id}
               className={`plan-card ${p.highlight ? "highlight" : ""}`}
@@ -476,15 +476,13 @@ function PricingPreviewSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.08 }}
-              data-testid={`home-plan-card-${p.id}`}
+              data-testid={`home-plan-card-${p.id || i + 1}`}
             >
               {p.highlight && <span className="plan-badge">{p.highlight}</span>}
               <span className="eyebrow">PAY AS YOU GO</span>
               <h3>{p.name}</h3>
               <strong>{money(p.price)}</strong>
-              <p>
-                {p.hours} hours · £{p.perHour}/hour · {p.validity} validity
-              </p>
+              <p>{p.description || p.eligibility || `${p.hours || "Flexible"} hours · £${p.perHour || p.price}/hour · ${p.validity || "flexible"} validity`}</p>
               <Link to={`/contact?plan=${encodeURIComponent(p.name)}`} className="text-link" data-testid={`home-plan-choose-${p.id}`}>
                 Choose this plan ↗
               </Link>
@@ -642,15 +640,26 @@ function FinalCta() {
 
 export default function Home() {
   const [reviews, setReviews] = useState([]);
+  const [liveLessons, setLiveLessons] = useState([]);
+  const [livePlans, setLivePlans] = useState([]);
   const [modal, setModal] = useState(false);
 
+  const lessons = liveLessons.length ? liveLessons : LESSONS;
+  const plans = livePlans.length ? livePlans : PLANS;
+
   useEffect(() => {
-    const unsub = subscribe(
+    const unsubscribeRatings = subscribe(
       "ratings",
       (docs) => setReviews(docs.filter((d) => d.visible !== false)),
-      { orderField: "createdAt", orderDir: "desc", max: 40 },
+      { max: 40, where: { field: "visible", value: true } },
     );
-    return () => unsub();
+    const unsubscribeLessons = subscribe("lessons", setLiveLessons, { orderField: "order", max: 40 });
+    const unsubscribePlans = subscribe("plans", setLivePlans, { orderField: "order", max: 40 });
+    return () => {
+      unsubscribeRatings();
+      unsubscribeLessons();
+      unsubscribePlans();
+    };
   }, []);
 
   return (
@@ -660,11 +669,11 @@ export default function Home() {
       <AboutSection />
       <FeaturesSection />
       <ExtraFeaturesSection />
-      <LessonsPreviewSection />
+      <LessonsPreviewSection lessons={lessons} />
       <ImageStripSection />
       <TeamPreviewSection />
       <RatingSection reviews={reviews} onOpen={() => setModal(true)} />
-      <PricingPreviewSection />
+      <PricingPreviewSection plans={plans} />
       <ContactPreviewSection />
       <EligibilitySection />
       <FaqSection />

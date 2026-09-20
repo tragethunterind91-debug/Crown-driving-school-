@@ -1,0 +1,65 @@
+{
+  "summary": "Frontend-only validation completed for Home Firestore synchronization. Home now renders live Firestore lessons/plans (2 lesson cards, 1 plan card observed) instead of static fallback content, and production build succeeds. However, contact enquiry preselection from Home cards is broken for live document names.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [
+      {
+        "flow": "Home lesson card -> Contact enquiry preselection",
+        "issue": "URL includes ?lesson=<live_name> correctly, but contact select defaults to 'Automatic' instead of the clicked live lesson name (reproduced with lesson '#1twst').",
+        "affected_selectors": [
+          "[data-testid^='home-lesson-card-']",
+          "[data-testid='contact-plan-select']"
+        ]
+      },
+      {
+        "flow": "Home plan card -> Contact enquiry preselection",
+        "issue": "URL includes ?plan=<live_name> correctly, but contact select defaults to 'Automatic' instead of the clicked live plan name (reproduced with plan 'Test').",
+        "affected_selectors": [
+          "[data-testid^='home-plan-choose-']",
+          "[data-testid='contact-plan-select']"
+        ]
+      },
+      {
+        "flow": "Homepage rating subscription",
+        "issue": "Console shows Firestore permissions warning: '[firestore] subscribe failed ratings Missing or insufficient permissions.' during page load.",
+        "affected_selectors": []
+      }
+    ],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/frontend/src/pages/Home.jsx",
+    "/app/frontend/src/pages/Contact.jsx",
+    "/app/frontend/src/lib/firestoreHelpers.js",
+    "/app/frontend/src/lib/data.js",
+    "/app/frontend/firestore.rules",
+    "/app/frontend/package.json",
+    "/root/.emergent/automation_output/20260920_093657/console_20260920_093657.log"
+  ],
+  "action_items": [
+    "Update Contact form options to include live Firestore lessons/plans (or handle unknown query values) so selectedPlan preserves clicked Home lesson/plan names.",
+    "Keep Home->Contact query link behavior as-is (already correct URL param construction).",
+    "If rating cards are intended public, align Firestore rules/queries to avoid permission warnings on Home."
+  ],
+  "critical_code_review_comments": [
+    "Home correctly subscribes to Firestore lessons/plans and falls back only when live arrays are empty.",
+    "Contact prefill relies on static LESSONS/PLANS option lists, which causes value mismatch when Home uses live Firestore names not present in static arrays.",
+    "This mismatch is the root cause of failed preselection despite correct query parameter routing."
+  ],
+  "updated_files": [
+    "/app/test_reports/iteration_6.json"
+  ],
+  "success_rate": {
+    "backend": "Not run (frontend-only scope)",
+    "frontend": "60% (3/5 requested checks passed)"
+  },
+  "seed_data_creation": "None",
+  "retest_needed": true,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Reproduced on public URL from frontend/.env. Home live sync works (2 live lessons, 1 live plan displayed). Regression remains in Contact preselection for live names; select falls back to 'Automatic'. Build passes with `yarn build`.",
+  "rca of the issue": "Reproduction: click first live lesson/plan card on Home, verify URL contains lesson/plan query, then inspect `[data-testid='contact-plan-select']` value. Observed value is 'Automatic' instead of clicked live name. Root cause: Contact select options are generated from static LESSONS/PLANS constants; live Firestore names from Home are absent from option list, so controlled select cannot represent query value and reverts to default option. Mitigation: source contact selectable options from same live Firestore collections (with fallback) or inject query value as temporary option when absent."
+}

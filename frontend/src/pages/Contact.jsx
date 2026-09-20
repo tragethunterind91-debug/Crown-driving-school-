@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Check, Clock3, Instagram, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import Shell from "@/components/Shell";
 import { ASSETS, LESSONS, PLANS, SITE } from "@/lib/data";
-import { createMessage } from "@/lib/firestoreHelpers";
+import { createMessage, subscribe } from "@/lib/firestoreHelpers";
 
 const COUNTRIES = ["United Kingdom", "Ireland", "France", "Germany", "Spain", "Italy", "Poland", "Romania", "India", "Pakistan", "Nigeria", "Other"];
 
@@ -22,6 +22,22 @@ export default function Contact() {
     email: "",
   });
   const [state, setState] = useState("idle");
+  const [liveLessons, setLiveLessons] = useState([]);
+  const [livePlans, setLivePlans] = useState([]);
+  const lessons = liveLessons.length ? liveLessons : LESSONS;
+  const plans = livePlans.length ? livePlans : PLANS;
+  const listedPlans = [...lessons, ...plans.map((plan) => ({ ...plan, isPackage: true })), { name: "Intensive Pass Package", isPackage: true }, { name: "Introductory Lesson", isPackage: true }, { name: "Pass Plus", isPackage: true }];
+  const selectedIsListed = listedPlans.some((item) => item.name === form.selectedPlan);
+
+  useEffect(() => {
+    const unsubscribeLessons = subscribe("lessons", setLiveLessons, { orderField: "order", max: 40 });
+    const unsubscribePlans = subscribe("plans", setLivePlans, { orderField: "order", max: 40 });
+    return () => {
+      unsubscribeLessons();
+      unsubscribePlans();
+    };
+  }, []);
+
   const update = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const submit = async (e) => {
@@ -95,8 +111,9 @@ export default function Contact() {
                 </label>
                 <label>Select lesson / plan <span className="req">*</span>
                   <select name="selectedPlan" value={form.selectedPlan} onChange={update} data-testid="contact-plan-select">
-                    <optgroup label="Lessons">{LESSONS.map((l) => <option key={l.name}>{l.name}</option>)}</optgroup>
-                    <optgroup label="Packages">{PLANS.map((p) => <option key={p.name}>{p.name}</option>)}</optgroup>
+                    {!selectedIsListed && <option value={form.selectedPlan}>{form.selectedPlan}</option>}
+                    <optgroup label="Lessons">{lessons.map((l) => <option key={l.id || l.name}>{l.name}</option>)}</optgroup>
+                    <optgroup label="Packages">{plans.map((p) => <option key={p.id || p.name}>{p.name}</option>)}</optgroup>
                     <option>Intensive Pass Package</option>
                     <option>Introductory Lesson</option>
                     <option>Pass Plus</option>

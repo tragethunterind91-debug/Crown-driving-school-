@@ -21,9 +21,9 @@ import { db } from "@/firebase";
 export async function safeGet(name, fallback = [], options = {}) {
   try {
     const clauses = [collection(db, name)];
+    if (options.where) clauses.push(whereClause(options.where.field, options.where.op || "==", options.where.value));
     if (options.orderField) clauses.push(orderBy(options.orderField, options.orderDir || "asc"));
     if (options.max) clauses.push(limit(options.max));
-    if (options.where) clauses.push(whereClause(options.where.field, options.where.op || "==", options.where.value));
     const q = query(...clauses);
     const s = await getDocs(q);
     return s.docs.map((d) => ({ id: d.id, ...d.data() }));
@@ -36,6 +36,7 @@ export async function safeGet(name, fallback = [], options = {}) {
 export function subscribe(name, cb, options = {}) {
   try {
     const clauses = [collection(db, name)];
+    if (options.where) clauses.push(whereClause(options.where.field, options.where.op || "==", options.where.value));
     if (options.orderField) clauses.push(orderBy(options.orderField, options.orderDir || "asc"));
     if (options.max) clauses.push(limit(options.max));
     const q = query(...clauses);

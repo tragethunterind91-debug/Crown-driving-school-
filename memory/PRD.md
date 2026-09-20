@@ -38,6 +38,11 @@ Build a premium Crown Pass Driving School website (Northampton) with React, Tail
 - Removed Firebase Storage configuration, Storage SDK initialization, and unused Storage rules. The project now uses only Firebase Hosting, Firestore, Authentication and Analytics.
 - Free deployment command: `firebase deploy --only hosting,firestore`.
 
+## Home admin-content synchronization (2026-09-20)
+- Fixed Home lesson and pricing previews to subscribe to the live Firestore `lessons` and `plans` collections; bundled content remains a fallback only when those collections are empty or unavailable.
+- Live Home lesson and plan selections now carry exactly into the Contact enquiry selector. The public ratings query now requests only visible reviews, matching Firestore rules.
+- Testing agent verification (iteration_7): 6/6 requested checks passed, including live content display, lesson/plan enquiry handoff, no ratings permission warning, and production build.
+
 ## Firebase Hosting (Termux) — deployment status
 - User builds via `npx craco build` then `firebase deploy --only hosting` from `~/Crown-driving-school--main/frontend`.
 - Firebase project `crown-pass-driving` confirmed current after `firebase login --reauth`.

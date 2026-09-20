@@ -1,0 +1,36 @@
+{
+  "summary": "Frontend-only final verification completed for Home admin-content listing issue. Home renders live Firestore lessons/plans, Home->Contact preselection persists exact live values, no ratings permission warning observed, and production build succeeds.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/frontend/src/pages/Home.jsx",
+    "/app/frontend/src/pages/Contact.jsx",
+    "/app/frontend/src/lib/firestoreHelpers.js",
+    "/app/frontend/firestore.rules",
+    "/root/.emergent/automation_output/20260920_094024/console_20260920_094024.log"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Home ratings subscription now correctly requests only visible=true docs, aligned with firestore.rules public-read condition.",
+    "Contact select safely preserves query values by including live lessons/plans and handling unknown prefilled values until live data resolves."
+  ],
+  "updated_files": [
+    "/app/test_reports/iteration_7.json"
+  ],
+  "success_rate": {
+    "backend": "Not run (frontend-only scope)",
+    "frontend": "100% (6/6 requested checks passed)"
+  },
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Live Firestore content confirmed on public preview (lesson examples: '#1twst', 'Twat'; plan example: 'Test'). Home card click/query routing and Contact selected value are now consistent for both lesson and plan flows.",
+  "rca of the issue": "Previously, Contact select options were static, so live Home query values not present in option list reverted to default. Fix validated: Contact now sources live lists and preserves prefilled value while live options load."
+}
