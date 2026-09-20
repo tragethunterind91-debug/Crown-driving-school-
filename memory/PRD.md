@@ -1,13 +1,13 @@
 # Crown Pass Driving School — Product Record
 
 ## Original problem statement
-Build a premium Crown Pass Driving School website (Northampton) with React, Tailwind, Framer Motion, React Router. All data through Firebase directly (Firestore, Auth, Storage, Analytics). Gold-and-black premium theme, 7-second cinematic loader, Home (12 sections), long Lessons/Pricing/Contact pages, dynamic 1–10 ratings, admin at `/adevglobpik`, Firestore rules, Firebase free plan.
+Build a premium Crown Pass Driving School website (Northampton) with React, Tailwind, Framer Motion, React Router. All data through Firebase directly (Firestore, Auth and Analytics). Gold-and-black premium theme, 7-second cinematic loader, Home (12 sections), long Lessons/Pricing/Contact pages, dynamic 1–10 ratings, admin at `/adevglobpik`, Firestore rules, Firebase free plan.
 
 ## Architecture decisions
 - No custom API. React + Firebase Web SDK only.
 - Central Firebase init in `src/firebase.js` with exact user-supplied config.
 - Firestore collections: `lessons`, `plans`, `messages`, `ratings`, `siteSettings`, `analytics`.
-- Rules at `/app/firestore.rules` and `/app/storage.rules` (admin = signed-in user with `token.email == adevbossCDSuk@gmail.in`).
+- Firestore rules at `/app/frontend/firestore.rules` protect administrator-only content management.
 - Analytics counter uses atomic `increment(1)` on `analytics/{yyyy-mm-dd}` throttled by sessionStorage.
 - Static fallback content (lessons, plans, FAQs, reviews) ships with the app so the site is informative even before admin seeds Firestore. Live Firestore documents take precedence when present.
 
@@ -29,10 +29,14 @@ Build a premium Crown Pass Driving School website (Northampton) with React, Tail
 - Verified: production build completes successfully; preview confirms all five instructor cards render without portraits.
 
 ## Admin access migration (2026-09-20)
-- Updated the application, Firestore rules, and Storage rules to recognise `derox@gmail.com` as the only administrator; the previous administrator email was removed.
+- Updated the application and Firestore rules to recognise `derox@gmail.com` as the only administrator; the previous administrator email was removed.
 - The admin sign-in email is now fixed, and public account-creation controls have been removed. Any authenticated account other than the configured administrator is signed out before it can access the dashboard.
 - Verified: production build completes successfully; `/adevglobpik` renders the new fixed-email private login with no account-creation control.
-- Firebase Console action still required: enable Email/Password (if not already enabled), create the `derox@gmail.com` user, and set its password privately. Then publish Hosting and the updated Firestore/Storage rules.
+- Firebase Console action still required: enable Email/Password (if not already enabled), create the `derox@gmail.com` user, and set its password privately. Then publish Hosting and the updated Firestore rules.
+
+## Firebase free-tier cleanup (2026-09-20)
+- Removed Firebase Storage configuration, Storage SDK initialization, and unused Storage rules. The project now uses only Firebase Hosting, Firestore, Authentication and Analytics.
+- Free deployment command: `firebase deploy --only hosting,firestore`.
 
 ## Firebase Hosting (Termux) — deployment status
 - User builds via `npx craco build` then `firebase deploy --only hosting` from `~/Crown-driving-school--main/frontend`.
@@ -48,7 +52,7 @@ Build a premium Crown Pass Driving School website (Northampton) with React, Tail
 - Contact page: full validated form writing to Firestore `messages` with error surface; contact links; Google Maps embed; Instagram follow grid.
 - Admin at `/adevglobpik`: Firebase email/password sign-in with proper error messages, real-time dashboard with stat cards, Recharts charts, full CRUD tabs for Lessons, Plans, Messages, Ratings, Site Settings.
 - Sticky glass navbar, mobile full-screen animated nav, floating WhatsApp CTA, scroll progress bar.
-- Firebase Hosting config files: `firebase.json`, `.firebaserc`, `firestore.rules`, `storage.rules`.
+- Firebase Hosting config files: `firebase.json`, `.firebaserc`, `firestore.rules`.
 - SEO meta tags and Open Graph tags in index.html.
 
 ## Testing Status (2026-09-19)
@@ -65,9 +69,9 @@ Build a premium Crown Pass Driving School website (Northampton) with React, Tail
 - School operator: real-time inbox, one-click content edits, no code required.
 
 ## Prioritized backlog
-- P0 (BLOCKED ON FIREBASE CONSOLE): Enable Email/Password sign-in provider, create `adevbossCDSuk@gmail.in` user, publish `firestore.rules` and `storage.rules`, create Firestore database.
+- P0 (BLOCKED ON FIREBASE CONSOLE): Enable Email/Password sign-in provider, create the configured admin user, publish `firestore.rules`, create Firestore database.
 - P1: Seed initial `lessons`/`plans`/`siteSettings` documents from admin panel (UI ready).
-- P2: Storage image upload UI for admin (rules already in place).
+- P2: Optional image-upload planning only if Firebase Storage becomes a paid, explicitly approved requirement.
 - P2: SEO / OpenGraph meta tags per page (basic tags added).
 
 ## Remaining P0/P1/P2 tasks
@@ -76,6 +80,6 @@ Build a premium Crown Pass Driving School website (Northampton) with React, Tail
 - P2: Instructor profiles, availability calendar, downloadable Pass Plus certificate flow.
 
 ## Firebase Hosting Deployment
-Config files ready: `firebase.json`, `.firebaserc`, `firestore.rules`, `storage.rules`.
-Deploy command: `cd frontend && npx craco build && firebase deploy`
+Config files ready: `firebase.json`, `.firebaserc`, `firestore.rules`.
+Deploy command: `cd frontend && yarn build && firebase deploy --only hosting,firestore`
 Live URLs after deploy: `https://crown-pass-driving.web.app` / `https://crown-pass-driving.firebaseapp.com`

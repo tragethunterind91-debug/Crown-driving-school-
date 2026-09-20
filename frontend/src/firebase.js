@@ -2,7 +2,6 @@ import { getApp, getApps, initializeApp } from "firebase/app";
 import { getAnalytics, isSupported } from "firebase/analytics";
 import { getAuth, setPersistence, browserLocalPersistence } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDC_UysBJr1n39w9_Vb6D_0NhZ2CDE40Gw",
@@ -17,6 +16,5 @@ export const firebaseConfig = {
 export const firebaseApp = getApps().length ? getApp() : initializeApp(firebaseConfig);
 export const db = getFirestore(firebaseApp);
 export const auth = getAuth(firebaseApp);
-export const storage = getStorage(firebaseApp);
 setPersistence(auth, browserLocalPersistence).catch(() => {});
 export const analyticsPromise = isSupported().then((supported) => (supported ? getAnalytics(firebaseApp) : null));
