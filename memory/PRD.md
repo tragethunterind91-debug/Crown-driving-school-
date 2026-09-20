@@ -22,6 +22,12 @@ Build a premium Crown Pass Driving School website (Northampton) with React, Tail
 - New CSS blocks in App.css (instructor-grid/card, team-preview, areas-grid, area-map-card) with responsive breakpoints.
 - Self-tested via screenshots: 5 instructor cards render, 10 area cards render, nav links present, instructor→contact prefill verified.
 
+## Media simplification (2026-09-20)
+- Per client feedback, reduced the visual footprint to three purposeful real photographs: the Crown Pass vehicle hero, a learner-at-the-wheel lesson photo, and a Northampton street image.
+- Removed all five AI-generated instructor portraits, the Home team image grid, the six repeated lesson-detail images, and the six-tile Contact/Instagram gallery.
+- Instructor and lesson pages are now text-first, retaining all instructor matching, booking, lesson, and contact functionality.
+- Verified: production build completes successfully; preview confirms all five instructor cards render without portraits.
+
 ## Firebase Hosting (Termux) — deployment status
 - User builds via `npx craco build` then `firebase deploy --only hosting` from `~/Crown-driving-school--main/frontend`.
 - Firebase project `crown-pass-driving` confirmed current after `firebase login --reauth`.

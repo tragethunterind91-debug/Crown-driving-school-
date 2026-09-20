@@ -9,7 +9,7 @@ const money = (n) => `£${Number(n).toLocaleString("en-GB")}`;
 
 function PricingHero() {
   return (
-    <section className="page-hero" style={{ backgroundImage: `linear-gradient(90deg,rgba(10,10,10,.95),rgba(10,10,10,.42) 60%),url(${ASSETS.standard})` }} data-testid="pricing-page-hero">
+    <section className="page-hero" style={{ backgroundImage: `linear-gradient(90deg,rgba(10,10,10,.95),rgba(10,10,10,.42) 60%),url(${ASSETS.hero})` }} data-testid="pricing-page-hero">
       <div className="container">
         <span className="eyebrow">CROWN PASS / PRICING</span>
         <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>Simple, transparent pricing.</motion.h1>

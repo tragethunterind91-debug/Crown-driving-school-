@@ -497,8 +497,7 @@ em { color: var(--gold); font-style: normal; }
 /* -------------- LESSONS PAGE -------------- */
 .lesson-details { background: var(--black-2); }
 .lesson-detail {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 90px; align-items: center;
+  max-width: 860px;
   padding-top: 110px; padding-bottom: 110px;
   border-bottom: 1px solid var(--line-2);
 }
@@ -525,6 +524,10 @@ em { color: var(--gold); font-style: normal; }
 }
 .lesson-detail-badge .eyebrow { margin: 0; font-size: 9px; }
 .lesson-detail-copy h2 { font-size: clamp(30px, 4vw, 52px); margin-bottom: 20px; font-weight: 600; }
+.lesson-number {
+  display: block; margin-bottom: 20px; color: var(--gold);
+  font: 600 13px Poppins, sans-serif; letter-spacing: 2px;
+}
 .lesson-detail-copy .lead { font-size: 16px; margin-bottom: 14px; color: var(--white); }
 .lesson-detail-copy .perfect { font-size: 13px; margin-bottom: 20px; }
 .lesson-detail-copy h4 {
@@ -853,11 +856,12 @@ footer { border-top: 1px solid var(--line-2); padding: 70px 0 22px; background: 
   transform: translateY(-6px); border-color: var(--line);
   box-shadow: 0 26px 60px rgba(0, 0, 0, .5);
 }
-.instructor-photo { position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
-.instructor-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
-.instructor-card:hover .instructor-photo img { transform: scale(1.05); }
+.instructor-card-head {
+  min-height: 88px; display: flex; align-items: flex-end; padding: 18px 22px;
+  background: linear-gradient(135deg, #24201a, #151515); border-bottom: 1px solid var(--line);
+}
 .instructor-grade {
-  position: absolute; bottom: 12px; left: 12px; display: inline-flex; align-items: center; gap: 6px;
+  display: inline-flex; align-items: center; gap: 6px;
   background: rgba(10, 10, 10, .78); backdrop-filter: blur(8px); color: var(--gold);
   font-size: 11px; letter-spacing: .5px; font-weight: 600; padding: 6px 12px; border-radius: 999px;
   border: 1px solid var(--line);
@@ -886,7 +890,11 @@ footer { border-top: 1px solid var(--line-2); padding: 70px 0 22px; background: 
   overflow: hidden; transition: transform .4s ease, border-color .4s ease;
 }
 .team-preview-card:hover { transform: translateY(-5px); border-color: var(--line); }
-.team-preview-card img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; }
+.team-preview-mark {
+  display: flex; align-items: center; min-height: 72px; padding: 18px;
+  color: var(--gold); font: 600 24px Poppins, sans-serif; background: #201d18;
+  border-bottom: 1px solid var(--line);
+}
 .team-preview-body { padding: 16px 18px; display: flex; flex-direction: column; gap: 4px; }
 .team-preview-body strong { font-size: 16px; }
 .team-preview-body small { color: var(--gold); font-size: 12px; }

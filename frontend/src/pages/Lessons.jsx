@@ -6,20 +6,11 @@ import { ASSETS, LESSONS, SITE } from "@/lib/data";
 
 const money = (n) => `£${Number(n).toLocaleString("en-GB")}`;
 
-const IMAGE_FOR = {
-  automatic: ASSETS.hero,
-  manual: ASSETS.wheel,
-  motorway: ASSETS.motorway,
-  night: ASSETS.night,
-  city: ASSETS.city,
-  "pass-plus": ASSETS.keys,
-};
-
 function LessonHero() {
   return (
     <section
       className="page-hero"
-      style={{ backgroundImage: `linear-gradient(90deg,rgba(10,10,10,.95),rgba(10,10,10,.42) 60%),url(${ASSETS.route})` }}
+      style={{ backgroundImage: `linear-gradient(90deg,rgba(10,10,10,.95),rgba(10,10,10,.42) 60%),url(${ASSETS.lesson})` }}
       data-testid="lessons-page-hero"
     >
       <div className="container">
@@ -41,22 +32,8 @@ function LessonHero() {
 }
 
 function LessonDetail({ lesson, index }) {
-  const reverse = index % 2 === 1;
   return (
-    <section className={`lesson-detail container ${reverse ? "reverse" : ""}`} id={lesson.id} data-testid={`lesson-detail-${lesson.id}`}>
-      <motion.div
-        className="lesson-detail-image"
-        style={{ backgroundImage: `url(${IMAGE_FOR[lesson.id] || ASSETS.hero})` }}
-        initial={{ opacity: 0, scale: 0.96 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.7 }}
-      >
-        <span>{String(index + 1).padStart(2, "0")}</span>
-        <div className="lesson-detail-badge">
-          <span className="eyebrow">{lesson.tag}</span>
-        </div>
-      </motion.div>
+    <section className="lesson-detail container" id={lesson.id} data-testid={`lesson-detail-${lesson.id}`}>
       <motion.div
         className="lesson-detail-copy"
         initial={{ opacity: 0, y: 30 }}
@@ -64,6 +41,7 @@ function LessonDetail({ lesson, index }) {
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
+        <span className="lesson-number" aria-hidden>{String(index + 1).padStart(2, "0")}</span>
         <span className="eyebrow">
           {lesson.beginnerFriendly === "YES" ? "BEGINNER FRIENDLY" : lesson.beginnerFriendly} · {lesson.recommendedHours}
         </span>

@@ -4,24 +4,8 @@
 
 export const ASSETS = {
   hero: "https://customer-assets-0z36b82j.emergentagent.net/job_a8595af7-d07f-4726-933d-5500819d4463/artifacts/z244wxtt_IMG_20260917_194743_693.jpg",
-  standard: "https://customer-assets-0z36b82j.emergentagent.net/job_a8595af7-d07f-4726-933d-5500819d4463/artifacts/tpfgaen6_IMG_20260917_194749_175.jpg",
-  route: "https://customer-assets-0z36b82j.emergentagent.net/job_a8595af7-d07f-4726-933d-5500819d4463/artifacts/4y6zaxha_IMG_20260917_194754_026.jpg",
-  // Supplementary editorial photography (free stock, no key needed)
-  night: "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?auto=format&fit=crop&w=1600&q=80",
-  city: "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1600&q=80",
-  motorway: "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=1600&q=80",
-  wheel: "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=1600&q=80",
-  interior: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=1600&q=80",
-  keys: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1600&q=80",
-  passed: "https://images.unsplash.com/photo-1493238792000-8113da705763?auto=format&fit=crop&w=1600&q=80",
+  lesson: "https://images.unsplash.com/photo-1679395608187-ac2bcedba9ab?auto=format&fit=crop&w=1600&q=85",
   northampton: "https://images.pexels.com/photos/19848066/pexels-photo-19848066.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1600",
-  team: {
-    marcus: "https://static.prod-images.emergentagent.com/jobs/a8595af7-d07f-4726-933d-5500819d4463/images/b5b7aec37fbc360098535dbaaecbabd7bfba74cf4ab914d5d173d6cff6b1e98e.jpeg",
-    sofia: "https://static.prod-images.emergentagent.com/jobs/a8595af7-d07f-4726-933d-5500819d4463/images/633e14eed9f52bed84d540f3e5884b53ddf8dcfaa5f1bfcca5f1070f7516b82b.jpeg",
-    daniel: "https://static.prod-images.emergentagent.com/jobs/a8595af7-d07f-4726-933d-5500819d4463/images/9a002ac02975b138454965e90e701d98c00df9c1897d7b2ed45637ef6613df27.jpeg",
-    aisha: "https://static.prod-images.emergentagent.com/jobs/a8595af7-d07f-4726-933d-5500819d4463/images/d0a9bffb705823badb33c47f6a5243975b0ce0c89063d5b25f36c3b8d3757719.jpeg",
-    james: "https://static.prod-images.emergentagent.com/jobs/a8595af7-d07f-4726-933d-5500819d4463/images/e6d77baac8a7927f2bcf779173f5789127e04052b290a3a33222548d2f0dd71c.jpeg",
-  },
 };
 
 export const SITE = {
@@ -463,7 +447,6 @@ export const INSTRUCTORS = [
     id: "marcus",
     name: "Marcus Bennett",
     role: "Senior DVSA-Approved Instructor",
-    photo: ASSETS.team.marcus,
     experience: "18 years",
     grade: "ADI Grade A",
     specialties: ["Manual tuition", "Intensive courses", "Test-route mastery"],
@@ -475,7 +458,6 @@ export const INSTRUCTORS = [
     id: "sofia",
     name: "Sofia Reyes",
     role: "DVSA-Approved Instructor",
-    photo: ASSETS.team.sofia,
     experience: "9 years",
     grade: "ADI Grade A",
     specialties: ["Automatic tuition", "Nervous drivers", "Female instructor"],
@@ -487,7 +469,6 @@ export const INSTRUCTORS = [
     id: "daniel",
     name: "Daniel Ward",
     role: "DVSA-Approved Instructor",
-    photo: ASSETS.team.daniel,
     experience: "22 years",
     grade: "ADI Grade A",
     specialties: ["Refresher lessons", "Mature learners", "Pass Plus"],
@@ -499,7 +480,6 @@ export const INSTRUCTORS = [
     id: "aisha",
     name: "Aisha Khan",
     role: "DVSA-Approved Instructor",
-    photo: ASSETS.team.aisha,
     experience: "8 years",
     grade: "ADI Grade A",
     specialties: ["Female instructor", "Automatic & manual", "Pass Plus"],
@@ -511,7 +491,6 @@ export const INSTRUCTORS = [
     id: "james",
     name: "James Cole",
     role: "Trainee Instructor (PDI)",
-    photo: ASSETS.team.james,
     experience: "5 years driving coaching",
     grade: "PDI · fully supervised",
     specialties: ["Motorway confidence", "Night driving", "Young learners"],

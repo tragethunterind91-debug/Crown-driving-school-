@@ -8,7 +8,7 @@ function InstructorsHero() {
   return (
     <section
       className="page-hero"
-      style={{ backgroundImage: `linear-gradient(90deg,rgba(10,10,10,.95),rgba(10,10,10,.42) 60%),url(${ASSETS.standard})` }}
+      style={{ backgroundImage: `linear-gradient(90deg,rgba(10,10,10,.95),rgba(10,10,10,.42) 60%),url(${ASSETS.lesson})` }}
       data-testid="instructors-page-hero"
     >
       <div className="container">
@@ -48,8 +48,7 @@ function InstructorCard({ person, index }) {
       transition={{ delay: index * 0.06, duration: 0.55 }}
       data-testid={`instructor-card-${person.id}`}
     >
-      <div className="instructor-photo">
-        <img src={person.photo} alt={`${person.name}, ${person.role}`} loading="lazy" />
+      <div className="instructor-card-head">
         <span className="instructor-grade"><Award size={13} /> {person.grade}</span>
       </div>
       <div className="instructor-body">

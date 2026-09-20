@@ -298,7 +298,7 @@ function LessonsPreviewSection() {
 function ImageStripSection() {
   return (
     <section className="image-strip" data-testid="home-image-strip">
-      <img src={ASSETS.standard} alt="Crown Pass instructor beside driving school car" loading="lazy" />
+      <img src={ASSETS.lesson} alt="Learner practising at the wheel during a driving lesson" loading="lazy" />
       <div>
         <span className="eyebrow">THE CROWN PASS STANDARD</span>
         <h2>Learn. Practise.<br/><em>Pass.</em></h2>
@@ -332,7 +332,7 @@ function TeamPreviewSection() {
             transition={{ delay: i * 0.06, duration: 0.5 }}
           >
             <Link to="/instructors" className="team-preview-card" data-testid={`home-team-card-${p.id}`}>
-              <img src={p.photo} alt={p.name} loading="lazy" />
+              <span className="team-preview-mark" aria-hidden>{String(i + 1).padStart(2, "0")}</span>
               <div className="team-preview-body">
                 <strong>{p.name}</strong>
                 <small>{p.passHighlight}</small>

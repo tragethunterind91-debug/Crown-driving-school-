@@ -133,14 +133,6 @@ export default function Contact() {
           <h2>See our students on Instagram.</h2>
           <p>Real learners, real passes. Follow the journey and share your own.</p>
         </div>
-        <div className="follow-grid">
-          {[ASSETS.hero, ASSETS.standard, ASSETS.route, ASSETS.wheel, ASSETS.night, ASSETS.city].map((src, i) => (
-            <a key={i} href={SITE.instagram} target="_blank" rel="noreferrer" className="follow-tile" data-testid={`follow-tile-${i + 1}`}>
-              <img src={src} alt="Crown Pass student moment" loading="lazy" />
-              <Instagram size={22} />
-            </a>
-          ))}
-        </div>
         <div className="final-actions center">
           <a href={SITE.instagram} target="_blank" rel="noreferrer" className="button" data-testid="follow-instagram-button"><Instagram size={16} /> Follow us</a>
         </div>
